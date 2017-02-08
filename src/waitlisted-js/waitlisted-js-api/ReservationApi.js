@@ -116,7 +116,7 @@
       var formParams = {
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = ['application/json'];
       var accepts = ['application/json'];
       var returnType = null;
