@@ -25,18 +25,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['waitlisted-js/ApiClient', 'waitlisted-js/waitlisted-js-models/Reservation', 'waitlisted-js/waitlisted-js-models/ReservationsResponse', 'waitlisted-js/waitlisted-js-models/ErrorResponse', 'waitlisted-js/waitlisted-js-models/ReservationRequest'], factory);
+    define(['waitlisted-js/ApiClient', 'waitlisted-js/waitlisted-js-models/ReservationRequest', 'waitlisted-js/waitlisted-js-models/ReservationsResponse', 'waitlisted-js/waitlisted-js-models/ErrorResponse', 'waitlisted-js/waitlisted-js-models/Reservation'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../waitlisted-js-models/Reservation'), require('../waitlisted-js-models/ReservationsResponse'), require('../waitlisted-js-models/ErrorResponse'), require('../waitlisted-js-models/ReservationRequest'));
+    module.exports = factory(require('../ApiClient'), require('../waitlisted-js-models/ReservationRequest'), require('../waitlisted-js-models/ReservationsResponse'), require('../waitlisted-js-models/ErrorResponse'), require('../waitlisted-js-models/Reservation'));
   } else {
     // Browser globals (root is window)
     if (!root.Waitlisted) {
       root.Waitlisted = {};
     }
-    root.Waitlisted.ReservationApi = factory(root.Waitlisted.ApiClient, root.Waitlisted.Reservation, root.Waitlisted.ReservationsResponse, root.Waitlisted.ErrorResponse, root.Waitlisted.ReservationRequest);
+    root.Waitlisted.ReservationApi = factory(root.Waitlisted.ApiClient, root.Waitlisted.ReservationRequest, root.Waitlisted.ReservationsResponse, root.Waitlisted.ErrorResponse, root.Waitlisted.Reservation);
   }
-}(this, function(ApiClient, Reservation, ReservationsResponse, ErrorResponse, ReservationRequest) {
+}(this, function(ApiClient, ReservationRequest, ReservationsResponse, ErrorResponse, Reservation) {
   'use strict';
 
   /**
@@ -55,6 +55,42 @@
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
 
+
+
+    /**
+     * Activate a reservation.
+     * @param {module:waitlisted-js/waitlisted-js-models/ReservationRequest} body Reservation Data
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:waitlisted-js/waitlisted-js-models/ReservationsResponse}
+     */
+    this.activateReservation = function(body) {
+      var postBody = body;
+
+      // verify the required parameter 'body' is set
+      if (body == undefined || body == null) {
+        throw "Missing the required parameter 'body' when calling activateReservation";
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['api_key'];
+      var contentTypes = ['application/json'];
+      var accepts = ['application/json'];
+      var returnType = ReservationsResponse;
+
+      return this.apiClient.callApi(
+        '/reservations/activate', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
 
 
     /**
